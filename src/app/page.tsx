@@ -177,7 +177,7 @@ export default function Home() {
           </div>
 
           <div className="rounded-2xl border border-zinc-200/60 bg-white/60 p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60 text-xs text-zinc-600 dark:text-zinc-300 font-medium leading-relaxed">
-            "Quando planeio uma viagem, acabo sempre com mais de 15 abas abertas no browser. Com a WayFinder, posso comparar a segurança, clima e vistos de múltiplos países num único ecrã."
+            Quando planeio uma viagem, acabo sempre com mais de 15 abas abertas no browser. Com a WayFinder, posso comparar a segurança, clima e vistos de múltiplos países num único ecrã.
           </div>
 
           <div className="flex items-center justify-between text-xs font-bold text-indigo-500">
