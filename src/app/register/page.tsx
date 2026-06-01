@@ -1,3 +1,4 @@
+//Page Register
 "use client";
 
 import { useState } from "react";
@@ -47,7 +48,10 @@ export default function RegisterPage() {
       return;
     }
 
-    setSuccessMsg("Conta criada com sucesso! Por favor, verifique o seu e-mail.");
+    setSuccessMsg("Conta criada com sucesso! Redirecionando para o painel...");
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 1500);
     setEmail("");
     setPassword("");
     setFullName("");

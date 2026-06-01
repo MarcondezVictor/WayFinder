@@ -1,3 +1,4 @@
+//Page Login
 "use client";
 
 import { useState } from "react";
@@ -38,7 +39,7 @@ export default function LoginPage() {
 
     setSuccessMsg("Autenticação efetuada com sucesso! Redirecionando...");
     setTimeout(() => {
-      window.location.href = "/";
+      window.location.href = "/dashboard";
     }, 1500);
   }
 

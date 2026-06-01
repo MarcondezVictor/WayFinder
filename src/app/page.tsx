@@ -1,11 +1,14 @@
+//Page.tsx
 import InteractiveMap from "@/components/InteractiveMap";
-import { countriesData } from "@/lib/countries-data";
+import { getCountries } from "@/lib/db-countries";
 import Link from "next/link";
 import { Compass, Shield, DollarSign, CloudSun, MapPin, ArrowRight } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const countries = await getCountries();
+
   // Let's feature Portugal, Brazil, and Ukraine at the top of the homepage
-  const featuredCountries = countriesData.filter((c) =>
+  const featuredCountries = countries.filter((c) =>
     ["portugal", "brazil", "ukraine"].includes(c.slug)
   );
 
@@ -60,7 +63,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center gap-1.5 rounded-full bg-zinc-200/50 dark:bg-zinc-800/50 px-4 py-1.5 text-xs font-bold text-zinc-600 dark:text-zinc-400">
-              Total: {countriesData.length} Países Carregados
+              Total: {countries.length} Países Carregados
             </div>
           </div>
 
@@ -112,7 +115,7 @@ export default function Home() {
                       <DollarSign className="h-4 w-4 text-amber-500" />
                       <span className="text-[10px] font-bold text-zinc-500">Custo Médio</span>
                       <span className="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">
-                        {country.avgCostDaily}€
+                        {Math.round(country.avgHotelPrice + country.avgMealPrice * 2 + country.avgTransportCost)}€
                       </span>
                     </div>
 

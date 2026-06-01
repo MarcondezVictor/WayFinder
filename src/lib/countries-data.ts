@@ -1,415 +1,517 @@
-export interface CostBreakdown {
-  lodging: number; // Avg cost per night in EUR
-  food: number; // Daily food cost in EUR
-  transport: number; // Avg public transit ticket/short ride in EUR
-  diningOut: number; // Mid-range restaurant meal for one in EUR
-  localSim: number; // Cost of 10GB mobile data in EUR
-  indexRating: "Low" | "Medium" | "High" | "Very High";
-}
-
 export interface PointOfInterest {
   name: string;
   description: string;
   imageUrl: string;
 }
 
-export interface CountryData {
+export interface CountrySchema {
   id: string;
   name: string;
   slug: string;
   isoCode: string;
+  capital: string;
+  continent: string;
+  population: number;
+  languages: string;
+  currency: string;
+  
+  // Travel & Legal Requirements
+  visaRequirements: string;
+  passportRequirements: string;
+  etiasRequirements: string;
+  vaccineRequirements: string;
+  
+  // Safety Metrics
+  safetyScore: number; // 1-10
+  emergencyNumbers: string;
+  travelWarnings: string | null;
+  
+  // Economy & Budgets (in EUR)
+  avgHotelPrice: number;
+  avgMealPrice: number;
+  avgTransportCost: number;
+  costLivingIndex: number; // 1-120
+  
+  // Climate Details
+  climateType: string;
+  climateDetails: string;
+  
+  // Tourism & Cities
+  topAttractions: PointOfInterest[];
+  majorCities: string[];
+  bestTimeVisit: string;
+  
+  // Practical Metrics (1-10)
+  powerPlugType: string;
+  internetQualityScore: number;
+  transportQualityScore: number;
+  healthcareQualityScore: number;
+  
+  // Aesthetics
+  imageUrl: string;
   flagEmoji: string;
   tagline: string;
   description: string;
-  imageUrl: string;
-  visaInfo: string;
-  passportInfo: string;
-  safetyScore: number; // 1-10 (10 being safest)
-  safetyDetails: string;
-  climateType: string;
-  climateDetails: string;
-  avgCostDaily: number; // Total estimated average daily budget in EUR
-  costsDetails: CostBreakdown;
-  pointsOfInterest: PointOfInterest[];
 }
 
-export const countriesData: CountryData[] = [
+export const countriesData: CountrySchema[] = [
   {
     id: "1",
     name: "Portugal",
     slug: "portugal",
     isoCode: "PT",
-    flagEmoji: "🇵🇹",
-    tagline: "Land of discovery, golden coastlines, and historic charm.",
-    description: "Nestled on the Iberian Peninsula, Portugal offers a rich historical legacy, world-class beaches, spectacular cuisine (like the famous Pasteis de Nata), and a welcoming climate that makes it one of Europe's top relocation and travel destinations.",
-    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "EU/EEA citizens do not need a visa. Americans, Canadians, and UK citizens can enter for tourism visa-free for up to 90 days in any 180-day period. For long-term stays, Portugal offers the popular D7 Passive Income Visa, D2 Entrepreneur Visa, and Digital Nomad Visas.",
-    passportInfo: "Passports must be valid for at least 3 months beyond the planned departure date from the Schengen Area, and must have been issued within the last 10 years.",
+    capital: "Lisboa",
+    continent: "Europa",
+    population: 10300000,
+    languages: "Português",
+    currency: "Euro (EUR)",
+    visaRequirements: "Cidadãos da UE/EEE têm liberdade de circulação. Cidadãos dos EUA, Canadá e Reino Unido entram sem visto para turismo por até 90 dias. Para residência de longo termo, existem vistos D7 e vistos para Nómadas Digitais.",
+    passportRequirements: "Passaporte válido por pelo menos 3 meses além da data prevista de saída do Espaço Schengen.",
+    etiasRequirements: "Cidadãos de fora da UE que atualmente não precisam de visto precisarão de uma autorização ETIAS a partir de 2026.",
+    vaccineRequirements: "Nenhuma vacina obrigatória para entrada comum. Recomenda-se a vacinação padrão contra tétano e hepatites.",
     safetyScore: 9,
-    safetyDetails: "Consistently ranked among the top 10 safest countries globally in the Global Peace Index. Low crime rates, friendly locals, and a highly stable political environment. Normal travel precautions apply in busy tourist zones regarding pickpocketing.",
-    climateType: "Mediterranean",
-    climateDetails: "Mild winters and hot, dry summers. With over 300 days of sunshine annually, the southern Algarve region is highly temperate, while the north is cooler and wetter.",
-    avgCostDaily: 75,
-    costsDetails: {
-      lodging: 45,
-      food: 20,
-      transport: 5,
-      diningOut: 12,
-      localSim: 10,
-      indexRating: "Medium",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "112 (Emergência Nacional)",
+    travelWarnings: null,
+    avgHotelPrice: 75,
+    avgMealPrice: 15,
+    avgTransportCost: 2.5,
+    costLivingIndex: 55,
+    climateType: "Mediterrânico",
+    climateDetails: "Invernos suaves com alguma chuva e verões longos, secos e quentes. Algarve conta com mais de 300 dias de sol por ano.",
+    topAttractions: [
       {
-        name: "Belém Tower (Lisbon)",
-        description: "A 16th-century fortified tower that served as a ceremonial gateway to Lisbon and played a key role in maritime discoveries.",
+        name: "Torre de Belém (Lisboa)",
+        description: "Monumento gótico manuelino que servia de fortificação e ponto de partida para os Descobrimentos marítimos.",
         imageUrl: "https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Pena Palace (Sintra)",
-        description: "A Romanticist palace standing on a hilltop in the Sintra Mountains, famous for its vivid colors and eclectic architecture.",
+        name: "Palácio da Pena (Sintra)",
+        description: "Exponente máximo do romantismo arquitetónico português no topo da serra de Sintra.",
         imageUrl: "https://images.unsplash.com/photo-1579970080444-bd9eed0e7bf6?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Luís I Bridge (Porto)",
-        description: "An iconic double-deck metal arch bridge that spans the River Douro, connecting Porto with Vila Nova de Gaia.",
+        name: "Ponte Luís I (Porto)",
+        description: "Ponte metálica em arco de dois tabuleiros ligando o Porto a Vila Nova de Gaia sobre o rio Douro.",
         imageUrl: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Lisboa", "Porto", "Coimbra", "Braga", "Faro"],
+    bestTimeVisit: "Abril a Outubro (Primavera e Outono são ideais para passeios e Verão para praia)",
+    powerPlugType: "Tipo C / F (230V, 50Hz)",
+    internetQualityScore: 8,
+    transportQualityScore: 8,
+    healthcareQualityScore: 9,
+    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇵🇹",
+    tagline: "Terra de descobridores, praias douradas e história vibrante.",
+    description: "Portugal junta um legado cultural e histórico profundo a um dos melhores climas da Europa. Célebre pelo fado, pela hospitalidade, pela gastronomia rica em mariscos e pelos pastéis de nata, o país atrai cada vez mais estudantes, nómadas digitais e viajantes de todo o mundo."
   },
   {
     id: "2",
-    name: "Brazil",
+    name: "Brasil",
     slug: "brazil",
     isoCode: "BR",
-    flagEmoji: "🇧🇷",
-    tagline: "A vibrant continent-sized country of carnival, rain forest, and beaches.",
-    description: "Brazil is synonymous with high energy, natural wonders like the Amazon and Iguaçu Falls, world-famous beaches like Copacabana, and a vibrant cultural tapestry built upon music, dance, and diverse cultural groups.",
-    imageUrl: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "Visa exemptions exist for many nationalities (including EU, UK, and South American citizens) for tourist stays of up to 90 days. US, Canadian, and Australian passport holders may require an e-Visa. Brazil also recently launched an attractive Digital Nomad Visa.",
-    passportInfo: "Passport must be valid for the duration of the stay. It is recommended to have at least 6 months validity.",
+    capital: "Brasília",
+    continent: "América do Sul",
+    population: 214300000,
+    languages: "Português",
+    currency: "Real (BRL)",
+    visaRequirements: "Cidadãos da UE e Reino Unido estão isentos de visto para turismo por até 90 dias. Viajantes de outros países podem precisar de visto ou e-Visa antes da chegada.",
+    passportRequirements: "Passaporte válido pela duração da estadia. Recomenda-se ter pelo menos 6 meses de validade.",
+    etiasRequirements: "Não aplicável (país fora da Europa).",
+    vaccineRequirements: "Recomenda-se vacinação contra febre amarela para quem visita zonas de mata ou o interior. Vacina da Febre Tifoide é aconselhável.",
     safetyScore: 5,
-    safetyDetails: "Crime rates can be high in major urban centers, especially in specific neighborhoods. Travelers are advised to avoid displaying expensive items, be cautious after dark, use registered taxis or ride-shares, and follow local advice.",
-    climateType: "Tropical & Subtropical",
-    climateDetails: "Mostly warm and humid year-round due to the equator crossing the north. The south has distinct four seasons with cooler winters.",
-    avgCostDaily: 50,
-    costsDetails: {
-      lodging: 28,
-      food: 14,
-      transport: 3,
-      diningOut: 8,
-      localSim: 8,
-      indexRating: "Low",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "190 (Polícia Militar), 192 (SAMU), 193 (Bombeiros)",
+    travelWarnings: "Atenção redobrada nas grandes metrópoles. Evitar caminhar à noite em áreas desertas ou favelas sem guias autorizados.",
+    avgHotelPrice: 45,
+    avgMealPrice: 8,
+    avgTransportCost: 1.2,
+    costLivingIndex: 38,
+    climateType: "Tropical / Equatorial",
+    climateDetails: "Clima quente e húmido na maior parte do ano. O norte e nordeste são predominantemente tropicais, enquanto o sul tem as quatro estações delineadas com invernos frescos.",
+    topAttractions: [
       {
-        name: "Christ the Redeemer (Rio de Janeiro)",
-        description: "An iconic Art Deco statue of Jesus Christ overlooking Rio de Janeiro from the summit of Mount Corcovado.",
+        name: "Cristo Redentor (Rio de Janeiro)",
+        description: "Estátua art déco gigante no topo do morro do Corcovado, de onde se vê toda a baía do Rio.",
         imageUrl: "https://images.unsplash.com/photo-1564659995183-715fab39a6ec?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Iguaçu Falls (Foz do Iguaçu)",
-        description: "A spectacular collection of 275 waterfalls spanning the border between Brazil and Argentina, surrounded by lush rainforest.",
+        name: "Cataratas do Iguaçu (Paraná)",
+        description: "O maior sistema de quedas de água do mundo, rodeado por uma floresta tropical biodiversa.",
         imageUrl: "https://images.unsplash.com/photo-1549693578-d683be217e58?auto=format&fit=crop&w=600&q=80",
       },
       {
         name: "Pelourinho (Salvador)",
-        description: "The historic center of Salvador, Bahia, renowned for its colorful Portuguese colonial architecture and vibrant Afro-Brazilian culture.",
+        description: "Centro histórico de Salvador com ricas fachadas coloniais portuguesas e manifestações da cultura afro-brasileira.",
         imageUrl: "https://images.unsplash.com/photo-1599408162145-899009b4c110?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["São Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Curitiba"],
+    bestTimeVisit: "Dezembro a Março (para o Carnaval e Verão) ou Junho a Setembro (para climas mais amenos no sul)",
+    powerPlugType: "Tipo N (220V ou 127V, 60Hz)",
+    internetQualityScore: 7,
+    transportQualityScore: 5,
+    healthcareQualityScore: 6,
+    imageUrl: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇧🇷",
+    tagline: "Ritmo, praias tropicais e a maior floresta do planeta.",
+    description: "O Brasil é uma explosão de energia, diversidade cultural e belezas naturais sem paralelo. Da imensidão verde da Amazónia às praias do Rio de Janeiro, o país é famoso pela sua música, paixão pelo futebol, churrasco e uma das comunidades mais alegres do mundo."
   },
   {
     id: "3",
-    name: "Ukraine",
+    name: "Ucrânia",
     slug: "ukraine",
     isoCode: "UA",
-    flagEmoji: "🇺🇦",
-    tagline: "A land of brave hearts, golden domes, and vast golden fields.",
-    description: "Ukraine is Eastern Europe's second-largest country, rich in history, ancient cathedrals, beautiful diverse landscapes, and a warm, incredibly resilient culture. Despite current challenges, its cultural impact and technological spirit remain globally respected.",
-    imageUrl: "https://images.unsplash.com/photo-1561542320-9a18cd340469?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "Citizens of the US, EU, UK, Canada, and many others enjoy visa-free entry for up to 90 days within 180 days for tourism and business purposes.",
-    passportInfo: "Passports must be valid for at least 3 months after the planned date of departure and have been issued within the last 10 years.",
+    capital: "Kyiv",
+    continent: "Europa",
+    population: 38000000,
+    languages: "Ucraniano",
+    currency: "Hryvnia (UAH)",
+    visaRequirements: "Isenção de visto para turismo por até 90 dias num período de 180 dias para cidadãos da UE, EUA, Canadá e Reino Unido.",
+    passportRequirements: "Passaporte válido por pelo menos 3 meses além da data de saída.",
+    etiasRequirements: "Não aplicável.",
+    vaccineRequirements: "Nenhuma vacina especial obrigatória. Recomenda-se vacinas de rotina atualizadas.",
     safetyScore: 3,
-    safetyDetails: "Due to the ongoing war, the country is currently under martial law. Air alerts and drone/missile strikes occur nationwide. Highly advised against all non-essential travel except for verified humanitarian or official purposes with proper security protocols.",
-    climateType: "Moderate Continental",
-    climateDetails: "Cold winters with snow and warm, sunny summers. The southern coast on the Black Sea historically has a milder, sub-Mediterranean climate.",
-    avgCostDaily: 35,
-    costsDetails: {
-      lodging: 18,
-      food: 10,
-      transport: 2,
-      diningOut: 6,
-      localSim: 5,
-      indexRating: "Low",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "101 (Bombeiros), 102 (Polícia), 103 (Ambulância), 112 (Emergência Geral)",
+    travelWarnings: "Estado de alerta em vigor devido ao conflito ativo. Fortemente desaconselhado qualquer viagem turística para o território atualmente.",
+    avgHotelPrice: 30,
+    avgMealPrice: 6,
+    avgTransportCost: 0.5,
+    costLivingIndex: 32,
+    climateType: "Continental Moderado",
+    climateDetails: "Invernos frios e com bastante neve; verões amenos e quentes. A sul, na costa do Mar Negro, o clima é historicamente mais temperado.",
+    topAttractions: [
       {
-        name: "St. Sophia's Cathedral (Kyiv)",
-        description: "An outstanding architectural monument of Kyivan Rus' founded in the 11th century, famed for its breathtaking golden domes and mosaics.",
+        name: "Catedral de Santa Sofia (Kyiv)",
+        description: "Monumento medieval excecional fundado no século XI, famoso pelas suas cúpulas douradas e mosaicos bizantinos originais.",
         imageUrl: "https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Lviv Old Town",
-        description: "A UNESCO World Heritage site known for its medieval layout, Renaissance and Baroque architecture, and vibrant coffeehouse culture.",
+        name: "Centro Histórico de Lviv",
+        description: "Uma jóia da Europa de Leste com calçadas de paralelepípedos, arquitetura renascentista e uma cultura de café lendária.",
         imageUrl: "https://images.unsplash.com/photo-1569429597341-39e1ff51e604?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Carpathian Mountains",
-        description: "A beautiful range offering pristine pine forests, high-altitude alpine meadows, hiking trails, and traditional Hutsul culture.",
+        name: "Montanhas dos Cárpatos",
+        description: "Florestas densas de pinheiros, rios límpidos e a cultura tradicional Hutsul na região montanhosa a oeste do país.",
         imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Kyiv", "Lviv", "Odesa", "Kharkiv", "Dnipro"],
+    bestTimeVisit: "Maio a Setembro (quando as temperaturas estão agradáveis e os parques floridos)",
+    powerPlugType: "Tipo C / F (230V, 50Hz)",
+    internetQualityScore: 8,
+    transportQualityScore: 7,
+    healthcareQualityScore: 7,
+    imageUrl: "https://images.unsplash.com/photo-1561542320-9a18cd340469?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇺🇦",
+    tagline: "Corações corajosos, cúpulas douradas e campos de trigo dourados.",
+    description: "A Ucrânia é a terra dos contrastes culturais na Europa Oriental. Conhecida pelas suas magníficas catedrais de cúpulas brilhantes, história cossaca, festivais folclóricos e um ecossistema tecnológico altamente dinâmico e resiliente."
   },
   {
     id: "4",
-    name: "France",
+    name: "França",
     slug: "france",
     isoCode: "FR",
-    flagEmoji: "🇫🇷",
-    tagline: "The global home of art, fashion, gastronomy, and romance.",
-    description: "France has been the world's most popular tourist destination for decades. From the romantic streets of Paris to the sunny vineyards of Bordeaux and the glamorous French Riviera, it offers unparalleled cultural wealth and scenic beauty.",
-    imageUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "EU/EEA citizens have full freedom of movement. US, Canadian, UK, and Australian citizens do not need a visa for up to 90 days in the Schengen Area.",
-    passportInfo: "Passports must be valid for at least 3 months beyond the planned departure date from the Schengen Area, and must have been issued within the last 10 years.",
+    capital: "Paris",
+    continent: "Europa",
+    population: 68000000,
+    languages: "Francês",
+    currency: "Euro (EUR)",
+    visaRequirements: "Liberdade de circulação para cidadãos da UE. Isenção de visto para turismo até 90 dias no Espaço Schengen para EUA, Canadá, Reino Unido e Austrália.",
+    passportRequirements: "Válido por pelo menos 3 meses além da data de saída planeada.",
+    etiasRequirements: "Autorização ETIAS exigida para cidadãos isentos de visto a partir de 2026.",
+    vaccineRequirements: "Nenhuma vacina obrigatória especial.",
     safetyScore: 8,
-    safetyDetails: "A generally safe country for travelers. Primary concerns are pickpocketing and scams in major tourist areas like Paris, and occasional political demonstrations. Usual urban precautions should be taken.",
-    climateType: "Temperate & Mediterranean",
-    climateDetails: "Cool winters and warm summers in Paris and northern France. Southern France has a dry, hot Mediterranean climate with warm winters.",
-    avgCostDaily: 110,
-    costsDetails: {
-      lodging: 65,
-      food: 28,
-      transport: 6,
-      diningOut: 18,
-      localSim: 12,
-      indexRating: "High",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "112, 15 (Ambulância), 17 (Polícia), 18 (Bombeiros)",
+    travelWarnings: "Atenção a carteiristas e esquemas em grandes pontos turísticos em Paris. Manifestações políticas podem ocorrer com frequência.",
+    avgHotelPrice: 110,
+    avgMealPrice: 20,
+    avgTransportCost: 2.1,
+    costLivingIndex: 78,
+    climateType: "Temperado / Oceânico",
+    climateDetails: "Invernos frescos e verões amenos no norte. Clima mediterrânico agradável com verões quentes e invernos secos e suaves no sul.",
+    topAttractions: [
       {
-        name: "Eiffel Tower (Paris)",
-        description: "The global icon of France, this massive iron lattice tower stands on the Champ de Mars, towering over the Paris skyline.",
+        name: "Torre Eiffel (Paris)",
+        description: "O maior ícone francês do mundo, uma estrutura monumental de ferro construída em 1889 na margem do rio Sena.",
         imageUrl: "https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Palace of Versailles",
-        description: "The principal royal residence of France from 1682 until the French Revolution, famed for its breathtaking Hall of Mirrors and vast gardens.",
+        name: "Palácio de Versalhes",
+        description: "Antiga residência dos reis de França, famosa pelos seus salões espelhados deslumbrantes e jardins geométricos.",
         imageUrl: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Mont Saint-Michel (Normandy)",
-        description: "A stunning tidal island and medieval abbey rising dramatically from the sea flats off the coast of Normandy.",
+        name: "Mont Saint-Michel (Normandia)",
+        description: "Ilha rochosa fortificada com uma abadia gótica medieval espetacular cercada por uma das marés mais extremas da Europa.",
         imageUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Paris", "Marseille", "Lyon", "Toulouse", "Nice"],
+    bestTimeVisit: "Maio a Outubro (Primavera para evitar multidões e Verão na Côte d'Azur)",
+    powerPlugType: "Tipo C / E (230V, 50Hz)",
+    internetQualityScore: 9,
+    transportQualityScore: 9,
+    healthcareQualityScore: 10,
+    imageUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇫🇷",
+    tagline: "O centro global da arte, culinária fina, moda e romance.",
+    description: "França tem sido o destino turístico mais popular do mundo devido ao seu inestimável património artístico, moda de alta-costura, culinária gourmet requintada e regiões vinícolas famosas. Do charme metropolitano parisiense às vinhas do sul, oferece experiências extraordinárias."
   },
   {
     id: "5",
-    name: "Spain",
+    name: "Espanha",
     slug: "spain",
     isoCode: "ES",
-    flagEmoji: "🇪🇸",
-    tagline: "Sun-drenched plazas, vibrant festivals, and historic marvels.",
-    description: "Spain is a captivating combination of sunny weather, beautiful beaches, regional tapestries (from Catalonia to Andalusia), historic architecture (including Islamic palatial forts), and dynamic lifestyle characterized by late-night tapas and siestas.",
-    imageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "EU/EEA citizens enjoy full freedom of movement. US, Canadian, UK, and Australian citizens do not need a visa for up to 90 days in the Schengen Area. Spain also has an extremely popular Digital Nomad Visa.",
-    passportInfo: "Passports must be valid for at least 3 months beyond the planned departure date from the Schengen Area.",
+    capital: "Madrid",
+    continent: "Europa",
+    population: 47400000,
+    languages: "Espanhol (Castelhano), Catalão, Galego, Basco",
+    currency: "Euro (EUR)",
+    visaRequirements: "Liberdade de circulação para UE. Isenção para turismo até 90 dias para cidadãos dos EUA, Canadá e Reino Unido. Disponível Visto de Nómada Digital robusto.",
+    passportRequirements: "Válido por pelo menos 3 meses além da estadia Schengen.",
+    etiasRequirements: "Requer ETIAS para cidadãos isentos de visto a partir de 2026.",
+    vaccineRequirements: "Sem vacinas especiais exigidas.",
     safetyScore: 8,
-    safetyDetails: " Spain is one of the safest countries in Europe. Petty crime like pickpocketing is common in major metropolitan areas, especially Barcelona and Madrid, and on public transport. Always guard belongings.",
-    climateType: "Mediterranean & Semi-Arid",
-    climateDetails: "Hot, dry summers and mild, wet winters. Central Spain (Madrid) has a more continental climate with cold winters and very hot summers.",
-    avgCostDaily: 80,
-    costsDetails: {
-      lodging: 48,
-      food: 22,
-      transport: 4,
-      diningOut: 14,
-      localSim: 10,
-      indexRating: "Medium",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "112 (Emergência Geral), 091 (Polícia)",
+    travelWarnings: "Muito seguro. Cuidado com carteiristas no metro e Ramblas em Barcelona ou praças em Madrid.",
+    avgHotelPrice: 85,
+    avgMealPrice: 15,
+    avgTransportCost: 1.8,
+    costLivingIndex: 60,
+    climateType: "Mediterrânico / Semiárido",
+    climateDetails: "Verões quentes e secos e invernos amenos com chuvas. A zona central (Madrid) apresenta temperaturas continentais extremas no Verão e Inverno.",
+    topAttractions: [
       {
-        name: "La Sagrada Família (Barcelona)",
-        description: "Antoni Gaudí's unfinished masterpiece, an astonishing organic modernist basilica that has been under construction since 1882.",
+        name: "Sagrada Família (Barcelona)",
+        description: "A colossal basílica de Antoni Gaudí, expoente máximo do modernismo catalão ainda em conclusão.",
         imageUrl: "https://images.unsplash.com/photo-1587381420270-3e1a5b9e6904?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "The Alhambra (Granada)",
-        description: "A monumental palace and fortress complex originally built by Moorish monarchs, showing Spain's incredible Islamic art legacy.",
+        name: "Alhambra (Granada)",
+        description: "Magnífico palácio e fortaleza mourisca que testemunha o apogeu da arte islâmica medieval em Espanha.",
         imageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Plaza de España (Seville)",
-        description: "A breathtaking semi-circular brick palace complex built in 1928, highlighting Andalusian tilework and beautiful canals.",
+        name: "Plaza de España (Sevilha)",
+        description: "Belo palácio e canal semi-circular construído em 1928 que exibe o esplendor da azulejaria andaluza.",
         imageUrl: "https://images.unsplash.com/photo-1523531294919-4bea7c65e894?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Madrid", "Barcelona", "Sevilla", "Valencia", "Bilbao"],
+    bestTimeVisit: "Abril a Junho e Setembro a Outubro (temperaturas ótimas para explorar sem o calor sufocante do Verão)",
+    powerPlugType: "Tipo C / F (230V, 50Hz)",
+    internetQualityScore: 8,
+    transportQualityScore: 8,
+    healthcareQualityScore: 9,
+    imageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇪🇸",
+    tagline: "Cultura andaluza, monumentos medievais e sol eterno.",
+    description: "A Espanha junta sol, história e o estilo de vida vibrante das suas ruas. Conhecida pelas noites de tapas, siestas, festivais espetaculares, arquitetura mourisca requintada e praias mediterrânicas, é uma escolha imperdível para residir ou passear."
   },
   {
     id: "6",
-    name: "United States",
+    name: "Estados Unidos",
     slug: "united-states",
     isoCode: "US",
-    flagEmoji: "🇺🇸",
-    tagline: "Vast landscapes, towering skylines, and cinematic road trips.",
-    description: "The United States is an epic destination spanning six time zones, offering everything from historic metropolitan hubs like New York and Chicago to spectacular national parks like Yellowstone and the Grand Canyon.",
-    imageUrl: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "Citizens of 41 countries (including most of EU, UK, Japan, Australia) can enter visa-free for up to 90 days under the Visa Waiver Program via an ESTA authorization. Others must apply for a B1/B2 Visitor Visa.",
-    passportInfo: "Passports must be valid for at least 6 months beyond the intended period of stay, though exemptions apply to 'Six Month Club' members (including EU and UK).",
+    capital: "Washington D.C.",
+    continent: "América do Norte",
+    population: 331900000,
+    languages: "Inglês (e Espanhol como segunda principal)",
+    currency: "Dólar Americano (USD)",
+    visaRequirements: "Cidadãos de 41 países (incluindo UE e Reino Unido) entram sem visto sob o Programa de Isenção de Visto via autorização eletrónica ESTA.",
+    passportRequirements: "Válido por pelo menos 6 meses além da data de saída (com algumas exceções de acordos bilaterais).",
+    etiasRequirements: "Não aplicável.",
+    vaccineRequirements: "Sem exigências gerais de vacinas em vigor para turistas comuns atualmente.",
     safetyScore: 7,
-    safetyDetails: "Generally safe for travelers, though crime conditions vary significantly between cities and neighborhoods. Visitors are advised to research urban neighborhoods beforehand, be alert at night, and take normal safety precautions.",
-    climateType: "Extremely Diverse",
-    climateDetails: "Ranges from tropical (Hawaii, Florida) and arid desert (Nevada) to temperate-marine (Pacific Northwest) and subarctic (Alaska).",
-    avgCostDaily: 160,
-    costsDetails: {
-      lodging: 100,
-      food: 38,
-      transport: 12,
-      diningOut: 25,
-      localSim: 25,
-      indexRating: "Very High",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "911 (Polícia, Ambulância e Bombeiros)",
+    travelWarnings: "Seguro de viagem médica é obrigatório devido aos custos exorbitantes da saúde. Atenção aos avisos de segurança locais específicos em grandes áreas metropolitanas.",
+    avgHotelPrice: 140,
+    avgMealPrice: 25,
+    avgTransportCost: 3.5,
+    costLivingIndex: 85,
+    climateType: "Muito Diverso",
+    climateDetails: "Das regiões tropicais na Flórida e Havai, passando por desertos áridos no Nevada, até aos invernos rigorosos e frios no norte e subárticos no Alasca.",
+    topAttractions: [
       {
-        name: "Statue of Liberty (New York)",
-        description: "A colossal neoclassical copper sculpture on Liberty Island in New York Harbor, symbolizing freedom and welcoming immigrants.",
+        name: "Estátua da Liberdade (New York)",
+        description: "Monumento icónico na Liberty Island que recebia os barcos de imigrantes na baía de Nova Iorque.",
         imageUrl: "https://images.unsplash.com/photo-1522083165195-3427ec0297be?auto=format&fit=crop&w=600&q=80",
       },
       {
         name: "Grand Canyon (Arizona)",
-        description: "A massive, breathtaking gorge carved by the Colorado River, famous for its layered red rock formations and immense scale.",
+        description: "Uma das maiores maravilhas naturais do mundo esculpida pelo rio Colorado com impressionantes penhascos vermelhos.",
         imageUrl: "https://images.unsplash.com/photo-1615551043360-33de8b5f410c?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Golden Gate Bridge (San Francisco)",
-        description: "A world-famous orange suspension bridge spanning the golden gate strait, connecting San Francisco to Marin County.",
+        name: "Ponte Golden Gate (San Francisco)",
+        description: "Suspensa sobre o estreito de Golden Gate, uma das pontes mais reconhecíveis do planeta com a sua cor laranja característica.",
         imageUrl: "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["New York", "Los Angeles", "Chicago", "Miami", "San Francisco"],
+    bestTimeVisit: "Maio a Setembro (excelente tempo para parques nacionais e praias)",
+    powerPlugType: "Tipo A / B (120V, 60Hz)",
+    internetQualityScore: 9,
+    transportQualityScore: 6,
+    healthcareQualityScore: 8,
+    imageUrl: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇺🇸",
+    tagline: "Grandes metrópoles, cultura pop global e estradas cinematográficas.",
+    description: "Os Estados Unidos são sinónimo de imensidão e dinamismo. Lar de indústrias inteiras de cinema, inovação tecnológica, parques de diversão de classe mundial e parques nacionais impressionantes, o país oferece contrastes urbanos e geográficos inesquecíveis."
   },
   {
     id: "7",
-    name: "Japan",
+    name: "Japão",
     slug: "japan",
     isoCode: "JP",
-    flagEmoji: "🇯🇵",
-    tagline: "Hyper-modern neon cities blended with deep ancient traditions.",
-    description: "Japan is an island nation that perfectly blends cutting-edge technology, neon-lit bullet trains, and anime districts with serene Shinto shrines, Zen gardens, majestic temples, and beautiful cherry blossom seasons.",
-    imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "Japan has visa exemption agreements with 70 countries (including EU, US, Canada, UK, Australia) for short-term stays of up to 90 days. A new digital nomad visa was recently launched in 2024.",
-    passportInfo: "Passports must be valid for the duration of the intended stay. No minimum validity period is mandated by law, but having 6 months is safe.",
+    capital: "Tóquio",
+    continent: "Ásia",
+    population: 125700000,
+    languages: "Japonês",
+    currency: "Iene Japonês (JPY)",
+    visaRequirements: "Isenção de visto para estadias de turismo até 90 dias para mais de 70 países (incluindo UE, EUA e Canadá). Visto especial de Nómada Digital lançado em 2024.",
+    passportRequirements: "Válido pela duração total da estadia regulamentada.",
+    etiasRequirements: "Não aplicável.",
+    vaccineRequirements: "Nenhuma vacina especial de viagem obrigatória.",
     safetyScore: 10,
-    safetyDetails: "Consistently ranked as one of the safest countries in the world. Extremely low rates of petty and violent crime. It is safe to walk alone at night, though travelers should watch for common tourist district nightlife scams.",
-    climateType: "Temperate & Alpine",
-    climateDetails: "Four distinct, beautiful seasons. Hot, humid summers and cold, snowy winters in the north. Spring (cherry blossoms) and Autumn (foliage) are peak seasons.",
-    avgCostDaily: 105,
-    costsDetails: {
-      lodging: 60,
-      food: 26,
-      transport: 8,
-      diningOut: 15,
-      localSim: 18,
-      indexRating: "High",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "110 (Polícia), 119 (Ambulância e Bombeiros)",
+    travelWarnings: "País excecionalmente seguro. Raros crimes comuns. Risco natural de terramotos monitorizados pelo governo com sistemas automáticos de aviso.",
+    avgHotelPrice: 90,
+    avgMealPrice: 12,
+    avgTransportCost: 3.0,
+    costLivingIndex: 72,
+    climateType: "Temperado / Alpino",
+    climateDetails: "Quatro estações deslumbrantes. Primavera com a floração das cerejeiras, Outono com as folhas carmesim, Verões quentes e húmidos e invernos nevados fantásticos a norte.",
+    topAttractions: [
       {
-        name: "Mount Fuji",
-        description: "An active stratovolcano and Japan's highest mountain, offering a majestic, snow-capped silhouette that has inspired art for centuries.",
+        name: "Monte Fuji",
+        description: "O pico vulcânico mais alto do país, símbolo da identidade cultural japonesa envolto em neve na maior parte do ano.",
         imageUrl: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Fushimi Inari Shrine (Kyoto)",
-        description: "An important Shinto shrine famous for its stunning path of over 10,000 vibrant orange vermilion torii gates winding up the mountain.",
+        name: "Santuário Fushimi Inari (Kyoto)",
+        description: "Famoso trilho de mais de 10.000 portões torii cor-de-laranja vibrantes que sobem a montanha sagrada.",
         imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Shibuya Crossing (Tokyo)",
-        description: "The world's busiest pedestrian intersection, located in front of Shibuya Station, surrounded by giant screens and neon lights.",
+        name: "Cruzamento de Shibuya (Tóquio)",
+        description: "A passadeira de peões mais movimentada do mundo, localizada no centro tecnológico da metrópole asiática.",
         imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Tokyo", "Kyoto", "Osaka", "Sapporo", "Fukuoka"],
+    bestTimeVisit: "Março a Maio (floração das cerejeiras - Sakura) e Outubro a Novembro (folhagens de outono)",
+    powerPlugType: "Tipo A / B (100V, 50/60Hz)",
+    internetQualityScore: 9,
+    transportQualityScore: 10,
+    healthcareQualityScore: 9,
+    imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇯🇵",
+    tagline: "Tecnologia de ponta fundida com tradições milenares.",
+    description: "O Japão fascina pela união perfeita entre o passado e o futuro. Aqui poderá encontrar templos de madeira silenciosos ao lado de arranha-céus cobertos de néon e robôs. Com uma gastronomia de alta qualidade técnica e a melhor rede de comboios de alta velocidade, é um refúgio seguro e fascinante."
   },
   {
     id: "8",
-    name: "United Kingdom",
+    name: "Reino Unido",
     slug: "united-kingdom",
     isoCode: "GB",
-    flagEmoji: "🇬🇧",
-    tagline: "Rolling green countryside, medieval castles, and royal heritage.",
-    description: "The UK, comprising England, Scotland, Wales, and Northern Ireland, offers a captivating mixture of historic castles, iconic academic cities, rugged coastlines, and a vibrant cultural sphere dominated by theater, music, and pubs.",
-    imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "EU/EEA, US, Canadian, and Australian citizens do not need a visa for tourist visits of up to 6 months. For working or long-term stays, various points-based visa routes are required.",
-    passportInfo: "Passports must be valid for the duration of the stay. It should be in good condition.",
+    capital: "Londres",
+    continent: "Europa",
+    population: 67320000,
+    languages: "Inglês",
+    currency: "Libra Esterlina (GBP)",
+    visaRequirements: "Cidadãos da UE, EUA, Canadá e Austrália não precisam de visto para turismo por períodos até 6 meses. Outros fins requerem vistos de residência e trabalho baseados em pontuações.",
+    passportRequirements: "Passaporte válido pela duração da estadia. Deve estar em excelentes condições.",
+    etiasRequirements: "Não aplicável (país saiu do Espaço Schengen e da UE).",
+    vaccineRequirements: "Nenhuma vacina especial obrigatória.",
     safetyScore: 8,
-    safetyDetails: "A safe country overall. Minor crimes like phone snatching and pickpocketing are common in busy areas of London and other major cities. Safe to travel by public transport night and day.",
-    climateType: "Temperate Maritime",
-    climateDetails: "Cool, damp, and highly changeable. The UK has mild winters and warm, humid summers, with rainfall evenly distributed throughout the year.",
-    avgCostDaily: 125,
-    costsDetails: {
-      lodging: 75,
-      food: 30,
-      transport: 8,
-      diningOut: 20,
-      localSim: 10,
-      indexRating: "High",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "999 (Emergências gerais), 111 (Não-emergências médicas)",
+    travelWarnings: "Muito seguro. Cuidado com furtos de telemóveis e carteiras em zonas urbanas densas de Londres e eventos desportivos.",
+    avgHotelPrice: 115,
+    avgMealPrice: 18,
+    avgTransportCost: 3.2,
+    costLivingIndex: 76,
+    climateType: "Temperado Marítimo",
+    climateDetails: "Muito mutável e chuvoso. Invernos frios e húmidos e verões moderadamente quentes e nublados.",
+    topAttractions: [
       {
-        name: "Big Ben & Westminster (London)",
-        description: "The stunning gothic Palace of Westminster and its world-famous clock tower, standing majestically on the River Thames.",
+        name: "Big Ben & Parlamento (Londres)",
+        description: "A torre do relógio Elizabeth Tower e a sede do governo britânico nas margens do rio Tamisa.",
         imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Edinburgh Castle (Scotland)",
-        description: "A historic fortress dominating the skyline of Edinburgh, built atop the volcanic Castle Rock.",
+        name: "Castelo de Edimburgo",
+        description: "Fortaleza histórica imponente que domina o horizonte da capital da Escócia no topo do vulcânico Castle Rock.",
         imageUrl: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=600&q=80",
       },
       {
         name: "Stonehenge (Wiltshire)",
-        description: "A mysterious prehistoric monument consisting of a ring of standing stones, dating back to 3000 BC.",
+        description: "Círculo misterioso de monólitos gigantescos de pedra construído no período neolítico em Salisbury Plain.",
         imageUrl: "https://images.unsplash.com/photo-1507731739823-5e881400e28e?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["London", "Edinburgh", "Manchester", "Birmingham", "Glasgow"],
+    bestTimeVisit: "Maio a Setembro (quando os dias são longos, ensolarados e as temperaturas ideais para passear)",
+    powerPlugType: "Tipo G (230V, 50Hz)",
+    internetQualityScore: 9,
+    transportQualityScore: 8,
+    healthcareQualityScore: 9,
+    imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇬🇧",
+    tagline: "Castelos medievais, palácios reais e paisagens bucólicas espetaculares.",
+    description: "O Reino Unido guarda séculos de história nas suas ruas medievais, catedrais góticas imponentes e castelos reais. Lar de uma das maiores indústrias literárias, de música e teatros do mundo, proporciona rotas rurais deslumbrantes misturadas a capitais globais dinâmicas."
   },
   {
     id: "9",
-    name: "Italy",
+    name: "Itália",
     slug: "italy",
     isoCode: "IT",
-    flagEmoji: "🇮🇹",
-    tagline: "Vibrant coastal villages, ruins of empire, and culinary perfection.",
-    description: "Italy holds the largest number of UNESCO World Heritage sites in the world. From the ruins of Rome and canals of Venice to the breathtaking Amalfi Coast and Tuscan hills, it offers a legendary cultural and culinary experience.",
-    imageUrl: "https://images.unsplash.com/photo-1529260830199-445826f3fbe5?auto=format&fit=crop&w=1200&q=80",
-    visaInfo: "EU/EEA citizens enjoy full freedom of movement. US, Canadian, UK, and Australian citizens do not need a visa for up to 90 days in the Schengen Area.",
-    passportInfo: "Passports must be valid for at least 3 months beyond the planned departure date from the Schengen Area.",
+    capital: "Roma",
+    continent: "Europa",
+    population: 59000000,
+    languages: "Italiano",
+    currency: "Euro (EUR)",
+    visaRequirements: "Liberdade de circulação para UE. Isenção até 90 dias Schengen para EUA, Canadá, Reino Unido e Austrália.",
+    passportRequirements: "Válido por pelo menos 3 meses além do período Schengen planeado.",
+    etiasRequirements: "ETIAS exigido a partir de 2026 para cidadãos isentos de visto.",
+    vaccineRequirements: "Nenhuma vacina especial.",
     safetyScore: 8,
-    safetyDetails: "Very safe for travelers. The main concern is pickpocketing in tourist hotspots like Rome's Colosseum, Florence, and Venice. Always keep valuables in secure pockets.",
-    climateType: "Mediterranean",
-    climateDetails: "Hot, dry summers and mild, wet winters. Central and northern regions can get cold and snowy during the winter months.",
-    avgCostDaily: 90,
-    costsDetails: {
-      lodging: 55,
-      food: 24,
-      transport: 5,
-      diningOut: 15,
-      localSim: 10,
-      indexRating: "Medium",
-    },
-    pointsOfInterest: [
+    emergencyNumbers: "112, 113 (Polícia), 118 (Ambulância)",
+    travelWarnings: "Bastante seguro. Elevada atividade de batedores de carteiras nos monumentos mais famosos de Roma, Florença e comboios expressos.",
+    avgHotelPrice: 90,
+    avgMealPrice: 18,
+    avgTransportCost: 2.0,
+    costLivingIndex: 65,
+    climateType: "Mediterrânico",
+    climateDetails: "Verões muito quentes e secos nas planícies centrais e a sul, invernos amenos com episódios de chuva. O norte junto aos Alpes é frio e com neve.",
+    topAttractions: [
       {
-        name: "The Colosseum (Rome)",
-        description: "An immense oval amphitheater in the center of Rome, the largest ancient amphitheater ever built by the Roman Empire.",
+        name: "Coliseu (Roma)",
+        description: "O maior anfiteatro da Antiguidade clássica construído pelo Império Romano no centro histórico da capital.",
         imageUrl: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Duomo di Firenze (Florence)",
-        description: "The spectacular cathedral of Florence, renowned for its giant brick dome engineered by Filippo Brunelleschi.",
+        name: "Duomo de Florença",
+        description: "A catedral de Santa Maria del Fiore com a sua monumental cúpula de tijolos vermelhos projetada por Filippo Brunelleschi.",
         imageUrl: "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?auto=format&fit=crop&w=600&q=80",
       },
       {
-        name: "Amalfi Coast",
-        description: "A stunning stretch of mountainous coastline dotted with pastel-colored fishing villages clinging to steep cliffs.",
+        name: "Costa Amalfitana (Campânia)",
+        description: "Região costeira montanhosa deslumbrante de vilas coloridas de pescadores suspensas sobre o mar azul-safira.",
         imageUrl: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80",
       }
-    ]
+    ],
+    majorCities: ["Roma", "Milão", "Florença", "Veneza", "Nápoles"],
+    bestTimeVisit: "Abril a Junho e Setembro a Outubro (evitando a forte vaga de calor do Verão italiano em Julho e Agosto)",
+    powerPlugType: "Tipo C / L / F (230V, 50Hz)",
+    internetQualityScore: 8,
+    transportQualityScore: 7,
+    healthcareQualityScore: 9,
+    imageUrl: "https://images.unsplash.com/photo-1529260830199-445826f3fbe5?auto=format&fit=crop&w=1200&q=80",
+    flagEmoji: "🇮🇹",
+    tagline: "Ruínas antigas lendárias, canais românticos e a melhor comida do mundo.",
+    description: "Itália é o país com maior número de patrimónios da UNESCO do planeta. Lar da renascença artística, das ruínas romanas imponentes, de museus inesquecíveis e de uma das culinárias mais amadas mundialmente (pizza, pasta, gelatos e vinhos de exceção), oferece charme cultural a cada recanto."
   }
 ];

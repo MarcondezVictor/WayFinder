@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { countriesData, CountryData } from "@/lib/countries-data";
+import { countriesData, CountrySchema } from "@/lib/countries-data";
 import Link from "next/link";
 import { 
   ArrowLeft, 
@@ -19,7 +19,7 @@ import {
   TrendingUp
 } from "lucide-react";
 
-export default function ComparePage() {
+function CompareContent() {
   const searchParams = useSearchParams();
   const [countryASlug, setCountryASlug] = useState("");
   const [countryBSlug, setCountryBSlug] = useState("");
@@ -38,8 +38,10 @@ export default function ComparePage() {
   // Analysis helpers
   const getCheaperCountry = () => {
     if (!countryA || !countryB) return null;
-    if (countryA.avgCostDaily < countryB.avgCostDaily) return countryA;
-    if (countryB.avgCostDaily < countryA.avgCostDaily) return countryB;
+    const costA = Math.round(countryA.avgHotelPrice + countryA.avgMealPrice * 2 + countryA.avgTransportCost);
+    const costB = Math.round(countryB.avgHotelPrice + countryB.avgMealPrice * 2 + countryB.avgTransportCost);
+    if (costA < costB) return countryA;
+    if (costB < costA) return countryB;
     return null;
   };
 
@@ -201,7 +203,7 @@ export default function ComparePage() {
                     <span>{countryA.safetyScore} / 10</span>
                   </div>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
-                    {countryA.safetyDetails}
+                    {countryA.travelWarnings ?? "Sem avisos de segurança registados."}
                   </p>
                 </div>
 
@@ -214,23 +216,27 @@ export default function ComparePage() {
                     <span>Custo e Finanças</span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-indigo-500">{countryA.avgCostDaily}€</span>
+                    <span className="text-4xl font-black text-indigo-500">{Math.round(countryA.avgHotelPrice + countryA.avgMealPrice * 2 + countryA.avgTransportCost)}€</span>
                     <span className="text-xs font-bold text-zinc-400">/ dia em média</span>
                   </div>
                   
                   {/* Detailed breakdowns */}
                   <div className="flex flex-col gap-2 rounded-2xl bg-zinc-100/50 p-4 border border-zinc-200/20 dark:bg-zinc-900/30 text-xs">
                     <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400">
-                      <span>Alojamento:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.costsDetails.lodging}€</span>
+                      <span>Alojamento (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.avgHotelPrice}€</span>
                     </div>
                     <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
-                      <span>Alimentação:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.costsDetails.food}€</span>
+                      <span>Alimentação (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.avgMealPrice}€</span>
                     </div>
                     <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
-                      <span>Transporte:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.costsDetails.transport}€</span>
+                      <span>Transporte (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.avgTransportCost}€</span>
+                    </div>
+                    <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
+                      <span>Índice de Custo de Vida:</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryA.costLivingIndex} / 120</span>
                     </div>
                   </div>
                 </div>
@@ -244,7 +250,7 @@ export default function ComparePage() {
                     <span>Informações Legais & Visto</span>
                   </div>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-semibold">
-                    {countryA.visaInfo}
+                    {countryA.visaRequirements}
                   </p>
                 </div>
 
@@ -299,7 +305,7 @@ export default function ComparePage() {
                     <span>{countryB.safetyScore} / 10</span>
                   </div>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
-                    {countryB.safetyDetails}
+                    {countryB.travelWarnings ?? "Sem avisos de segurança registados."}
                   </p>
                 </div>
 
@@ -312,23 +318,27 @@ export default function ComparePage() {
                     <span>Custo e Finanças</span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-indigo-500">{countryB.avgCostDaily}€</span>
+                    <span className="text-4xl font-black text-indigo-500">{Math.round(countryB.avgHotelPrice + countryB.avgMealPrice * 2 + countryB.avgTransportCost)}€</span>
                     <span className="text-xs font-bold text-zinc-400">/ dia em média</span>
                   </div>
                   
                   {/* Detailed breakdowns */}
                   <div className="flex flex-col gap-2 rounded-2xl bg-zinc-100/50 p-4 border border-zinc-200/20 dark:bg-zinc-900/30 text-xs">
-                    <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 font-bold">
-                      <span>Alojamento:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.costsDetails.lodging}€</span>
+                    <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400">
+                      <span>Alojamento (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.avgHotelPrice}€</span>
                     </div>
                     <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
-                      <span>Alimentação:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.costsDetails.food}€</span>
+                      <span>Alimentação (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.avgMealPrice}€</span>
                     </div>
                     <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
-                      <span>Transporte:</span>
-                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.costsDetails.transport}€</span>
+                      <span>Transporte (Médio):</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.avgTransportCost}€</span>
+                    </div>
+                    <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400 mt-1">
+                      <span>Índice de Custo de Vida:</span>
+                      <span className="text-zinc-800 dark:text-zinc-100 font-bold">{countryB.costLivingIndex} / 120</span>
                     </div>
                   </div>
                 </div>
@@ -342,7 +352,7 @@ export default function ComparePage() {
                     <span>Informações Legais & Visto</span>
                   </div>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-semibold">
-                    {countryB.visaInfo}
+                    {countryB.visaRequirements}
                   </p>
                 </div>
 
@@ -382,5 +392,18 @@ export default function ComparePage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={
+      <div className="w-full min-h-screen flex flex-col items-center justify-center bg-zinc-50 dark:bg-zinc-950 gap-4">
+        <div className="flex h-12 w-12 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
+        <span className="text-xs font-bold text-zinc-500">A carregar ferramenta de comparação...</span>
+      </div>
+    }>
+      <CompareContent />
+    </Suspense>
   );
 }
