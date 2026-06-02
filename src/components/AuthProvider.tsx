@@ -99,11 +99,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       const activeUser = session?.user ?? null;
       setUser(activeUser);
-      
+
       if (activeUser) {
         setLoading(true);
-        await fetchProfileAndPrefs(activeUser.id);
-        setLoading(false);
+        try {
+          await fetchProfileAndPrefs(activeUser.id);
+        } finally {
+          setLoading(false);  // ← always runs no matter what
+        }
       } else {
         setProfile(null);
         setPreferences(null);
