@@ -47,7 +47,7 @@ export default async function Home() {
             Clique num dos destinos destacados para explorar o dashboard do país.
           </p>
         </div>
-        <InteractiveMap />
+        <InteractiveMap countries={countries} />
       </section>
 
       {/* 3. Featured Countries (Portugal, Brazil, Ukraine) */}
