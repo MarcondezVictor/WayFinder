@@ -93,10 +93,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         setLoading(false);
       }
-    });
+    })
+    .catch(() => setLoading(false)); // ← ADICIONAR ESTA LINHA
 
     // 2. Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'INITIAL_SESSION') return; // ← ADICIONAR ESTA LINHA
+
       const activeUser = session?.user ?? null;
       setUser(activeUser);
 

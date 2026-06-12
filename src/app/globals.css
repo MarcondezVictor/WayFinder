@@ -6,12 +6,12 @@
   /* Core HSL colors - Premium Slate/Indigo theme */
   --color-border: hsl(240, 5.9%, 90%);
   --color-input: hsl(240, 5.9%, 90%);
-  --color-ring: hsl(262.1, 83.3%, 57.8%);
+  --color-ring: orange;
   
   --color-background: hsl(0, 0%, 100%);
   --color-foreground: hsl(240, 10%, 3.9%);
 
-  --color-primary: hsl(262.1, 83.3%, 57.8%);
+  --color-primary: orange;
   --color-primary-foreground: hsl(0, 0%, 98%);
 
   --color-secondary: hsl(240, 4.8%, 95.9%);
@@ -43,46 +43,13 @@
   --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
 }
 
-/* Dark mode variations - Tailwind v4 automatically handles prefers-color-scheme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-border: hsl(240, 3.7%, 15.9%);
-    --color-input: hsl(240, 3.7%, 15.9%);
-    --color-ring: hsl(263.4, 70%, 50.4%);
-    
-    --color-background: hsl(240, 10%, 3.9%);
-    --color-foreground: hsl(0, 0%, 98%);
-
-    --color-primary: hsl(263.4, 70%, 50.4%);
-    --color-primary-foreground: hsl(240, 5.9%, 10%);
-
-    --color-secondary: hsl(240, 3.7%, 15.9%);
-    --color-secondary-foreground: hsl(0, 0%, 98%);
-
-    --color-destructive: hsl(0, 62.8%, 30.6%);
-    --color-destructive-foreground: hsl(0, 0%, 98%);
-
-    --color-muted: hsl(240, 3.7%, 15.9%);
-    --color-muted-foreground: hsl(240, 5%, 64.9%);
-
-    --color-accent: hsl(240, 3.7%, 15.9%);
-    --color-accent-foreground: hsl(0, 0%, 98%);
-
-    --color-card: hsl(240, 10%, 3.9%);
-    --color-card-foreground: hsl(0, 0%, 98%);
-
-    --color-popover: hsl(240, 10%, 3.9%);
-    --color-popover-foreground: hsl(0, 0%, 98%);
-  }
-}
-
 /* Global resets & styling */
 * {
   border-color: var(--color-border);
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: #f9fafb;
   color: var(--color-foreground);
   overflow-x: hidden;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -90,36 +57,18 @@ body {
 
 /* Glassmorphism Styles */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.dark .glass-panel {
-  background: rgba(10, 10, 10, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: linear-gradient(135deg, rgba(15, 15, 25, 0.7) 0%, rgba(10, 10, 15, 0.4) 100%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  }
-}
 
 /* Animations */
 @keyframes fadeInUp {

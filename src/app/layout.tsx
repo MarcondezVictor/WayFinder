@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="pt"
       className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 font-sans selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200">
+      <body className="min-h-full flex flex-col bg-gray-50 font-sans selection:bg-blue-100 selection:text-blue-900">
         <AuthProvider>
           <Navbar />
           <main className="flex-grow flex flex-col">

@@ -16,14 +16,6 @@ export default function FavoriteButton({ countryId, countryName }: FavoriteButto
   const [loading, setLoading] = useState(true);
   const [animating, setAnimating] = useState(false);
 
-  useEffect(() => {
-    if (user && countryId) {
-      checkFavoriteState();
-    } else {
-      setLoading(false);
-    }
-  }, [user, countryId]);
-
   async function checkFavoriteState() {
     try {
       const { data, error } = await supabase
@@ -41,6 +33,15 @@ export default function FavoriteButton({ countryId, countryName }: FavoriteButto
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (user && countryId) {
+      checkFavoriteState();
+    } else {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, countryId]);
 
   async function toggleFavorite() {
     if (!user) {
@@ -84,7 +85,7 @@ export default function FavoriteButton({ countryId, countryName }: FavoriteButto
     return (
       <button
         disabled
-        className="w-full flex items-center justify-center gap-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 py-3 text-sm font-semibold text-zinc-400 opacity-60"
+        className="w-full flex items-center justify-center gap-2 rounded-lg bg-gray-50 border border-gray-200 py-3 text-sm font-medium text-gray-400 opacity-60"
       >
         <Heart className="h-4 w-4 animate-pulse" />
         <span>A carregar...</span>
@@ -95,10 +96,10 @@ export default function FavoriteButton({ countryId, countryName }: FavoriteButto
   return (
     <button
       onClick={toggleFavorite}
-      className={`w-full flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-bold shadow-sm transition-all active:scale-[0.97] cursor-pointer ${
+      className={`w-full flex items-center justify-center gap-2 rounded-lg border py-3 text-sm font-medium shadow-sm transition-all active:scale-[0.97] cursor-pointer ${
         isFavorite
-          ? "bg-red-50 border-red-200 text-red-600 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-400"
-          : "bg-white border-zinc-200 text-zinc-700 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-850"
+          ? "bg-red-50 border-red-200 text-red-700"
+          : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
       }`}
     >
       <Heart

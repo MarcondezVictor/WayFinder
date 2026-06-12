@@ -2,34 +2,34 @@ import { Compass, Heart } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 py-12 px-6 mt-auto">
+    <footer className="w-full border-t border-gray-200 bg-white py-12 px-6 mt-auto">
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left Section - Brand */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
           <div className="flex items-center gap-2">
-            <Compass className="h-5 w-5 text-indigo-500" />
-            <span className="text-base font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
+            <Compass className="h-5 w-5 text-blue-600" />
+            <span className="text-base font-semibold tracking-tight text-gray-900">
               WayFinder
             </span>
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-xs">
+          <p className="text-xs text-gray-500 mt-1 max-w-xs">
             A centralizar informação crítica internacional para vistos, custos, segurança e clima.
           </p>
         </div>
 
         {/* Center Section - Team Credits */}
         <div className="flex flex-col items-center gap-1.5 text-center">
-          <span className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+          <span className="text-xs font-semibold tracking-wider text-gray-400 uppercase">
             Equipa WayFinder · PI-I
           </span>
-          <div className="text-xs text-zinc-600 dark:text-zinc-400 flex flex-wrap justify-center gap-x-3 gap-y-1">
+          <div className="text-xs text-gray-600 flex flex-wrap justify-center gap-x-3 gap-y-1">
             <span>Victor Hugo</span>
-            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+            <span className="text-gray-300">•</span>
             <span>Martim Marcelino</span>
-            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+            <span className="text-gray-300">•</span>
             <span>Eric Cardoso</span>
-            <span className="text-zinc-300 dark:text-zinc-700">•</span>
+            <span className="text-gray-300">•</span>
             <span>Rodrigo Andrade</span>
           </div>
         </div>
@@ -40,10 +40,10 @@ export default function Footer() {
             href="https://github.com/MarcondezVictor/WayFinder"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-indigo-500 dark:text-zinc-400 dark:hover:text-indigo-400 transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-blue-600 transition-colors"
           >
             <svg
-              className="h-4 w-4 animate-pulse-glow"
+              className="h-4 w-4"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -59,11 +59,12 @@ export default function Footer() {
             </svg>
             <span>Ver no GitHub</span>
           </a>
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500 flex items-center gap-1">
+          <span className="text-[10px] text-gray-400 flex items-center gap-1">
             Desenvolvido com <Heart className="h-3 w-3 text-red-500 fill-red-500" /> para Projeto Integrado I
           </span>
         </div>
 
+        {/* Note: changed team text colors to gray equivalents */}
       </div>
     </footer>
   );
